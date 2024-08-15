@@ -80,16 +80,3 @@ export const columns = [
   },
 
 ];
-
-export const subColumns = [
-  {
-    title: 'Подходы',
-    key: 'approach',
-    width: '50%',
-  },
-  {
-    title: 'Количество',
-    key: 'count',
-    width: '50%',
-  },
-];

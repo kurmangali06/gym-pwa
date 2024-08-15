@@ -7,14 +7,17 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    ABadge: typeof import('ant-design-vue/es')['Badge']
+    AButton: typeof import('ant-design-vue/es')['Button']
     ACalendar: typeof import('ant-design-vue/es')['Calendar']
     ACard: typeof import('ant-design-vue/es')['Card']
     ACardGrid: typeof import('ant-design-vue/es')['CardGrid']
     ACheckbox: typeof import('ant-design-vue/es')['Checkbox']
     ACheckboxGroup: typeof import('ant-design-vue/es')['CheckboxGroup']
+    ACol: typeof import('ant-design-vue/es')['Col']
+    ADrawer: typeof import('ant-design-vue/es')['Drawer']
+    AForm: typeof import('ant-design-vue/es')['Form']
+    AFormItem: typeof import('ant-design-vue/es')['FormItem']
     AInput: typeof import('ant-design-vue/es')['Input']
-    AMenu: typeof import('ant-design-vue/es')['Menu']
     APopconfirm: typeof import('ant-design-vue/es')['Popconfirm']
     ARadio: typeof import('ant-design-vue/es')['Radio']
     ARadioGroup: typeof import('ant-design-vue/es')['RadioGroup']

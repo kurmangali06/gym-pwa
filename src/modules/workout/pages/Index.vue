@@ -1,10 +1,15 @@
 <template>
-  <ACard :title="`Тренировка ${currenDate}` ">
-    <ACardGrid style="width: 100%;">
+  <ACard>
+    <template #title>
+      <h2 class="flex justify-center items-center font-bold text-2xl">
+        {{ `Тренировка ${currenDate}` }}
+      </h2>
+    </template>
+    <ACardGrid style="width: 100%">
       <ARadioGroup
         v-model:value="selectDay"
         class="grid grid-cols-3"
-        style="pointer-events: none;"
+        style="pointer-events: none"
       >
         <ARadio
           v-for="item in dayList"
@@ -27,92 +32,150 @@
         </ACheckbox>
       </ACheckboxGroup>
     </ACardGrid>
-    <ACardGrid style="width: 100%; padding: 0;">
-      {{ expandedRowKeys }}
+    <ACardGrid style="width: 100%; padding: 0">
       <ATable
         bordered
-        class="components-table-demo-nested"
         :columns="columns"
-        :data-source="listMuscleList"
-
+        :data-source="listMuscle"
         :pagination="false"
-        style="width: 100%;"
+        style="width: 100%"
       >
+        <template #title>
+          <AButton :disabled="!muscleSelect.length" @click="showDrawer">
+            Добавить
+          </AButton>
+        </template>
+        <template #headerCell />
         <template #bodyCell="{ column, record, value }">
           <template v-if="column.key === 'operation'">
-            <APopconfirm
-              v-if="listMuscleList.length"
-              title="Вы действительно хотите удалить?"
-              @confirm="onDelete(record)"
-            >
-              <a>Удалить</a>
-            </APopconfirm>
+            <div class="flex justify-around items-center gap-1">
+              <FormOutlined class="text-green-600" @click="showDrawer" />
+              <APopconfirm
+                v-if="listMuscle.length"
+                title="Вы действительно хотите удалить?"
+                @confirm="onDelete(record)"
+              >
+                <DeleteOutlined class="text-red-400" />
+              </APopconfirm>
+            </div>
           </template>
           <template v-else-if="column.key">
             {{ value[column.key] }}
           </template>
         </template>
-        <template #expandedRowRender="{ record }">
-          {{ record.approaches }}
-          <ATable
-            v-if="howCountApproaches(record.approaches).length"
-            bordered
-            :columns="subColumns"
-            :data-source="howCountApproaches(record.approaches)"
-            :pagination="false"
-          >
-            <template #bodyCell="{ column, value }">
-              <template v-if="column.key === 'count'">
-                {{ value[column.key] }}
-              </template>
-              <template v-else-if="column.key">
-                {{ value[column.key] }}
-              </template>
-            </template>
-          </ATable>
-        </template>
       </ATable>
     </ACardGrid>
   </ACard>
+  <ADrawer
+    v-model:open="open"
+    class="custom-class"
+    height="60vh"
+    placement="bottom"
+    root-class-name="root-class-name"
+    :root-style="{ color: 'blue' }"
+    style="color: red"
+    title="Новое упражнение"
+  >
+    <AForm
+      layout="vertical"
+      :model="form"
+      :rules="rules"
+      @validate="onFinishFailed"
+    >
+      <ACol>
+        <AFormItem label="Name" name="name">
+          <AInput v-model:value="form.name" placeholder="Please enter user name" />
+        </AFormItem>
+      </ACol>
+      <ACol>
+        <AFormItem label="Count" name="count">
+          <AInput
+            v-model:value="form.count"
+            placeholder="Please enter user name"
+            type="number"
+          />
+        </AFormItem>
+      </ACol>
+    </AForm>
+    <template #footer>
+      <div class="flex justify-between items-center gap-2">
+        <AButton class="w-1/2" @click="onClose">
+          Отмена
+        </AButton>
+        <AButton
+          class="w-1/2"
+          :disabled="validField"
+          type="primary"
+          @click="onSave"
+        >
+          Сохранить
+        </AButton>
+      </div>
+    </template>
+  </ADrawer>
 </template>
 
 <script setup lang="ts">
 import dayjs from 'dayjs';
-import { type DateType, MuscleGroup } from 'shared/lib/types/app/pages';
+import { type DateType } from 'shared/lib/types/app/pages';
 import { FORMAT_DATE } from 'shared/lib/utils/constants';
-import { MuscleList, columns, dayList, subColumns } from '../model/utils/constants';
-import { dayChest } from '../model/utils/types';
+import { type Rule, useForm } from 'ant-design-vue/es/form';
+import { DeleteOutlined, FormOutlined } from '@ant-design/icons-vue';
+import { MuscleList, columns, dayList } from '../model/utils/constants';
 import type { IMuscleValue } from '../model/DTO';
 
 const route = useRoute();
 const selectDay = ref(dayjs(route.params.date as string).day());
 const muscleSelect = ref<string[]>([]);
+const open = ref<boolean>(false);
 
 const currenDay = computed(() => dayjs().day());
-const listMuscleList = ref<IMuscleValue[]>([]);
-const expandedRowKeys = ref([]);
+const listMuscle = ref<IMuscleValue[]>([]);
+const validField = ref(true);
+const form = reactive({
+  name: '',
+  count: 4,
+});
+
+const rules: Record<string, Rule[]> = {
+  name: [{ required: true, message: 'Please enter  exercise' }],
+  count: [{ required: true, message: 'please enter count' }],
+};
+const { resetFields } = useForm(
+  form,
+  reactive({
+    name: [{ required: true, message: 'Please enter  exercise' }],
+    count: [{ required: true, message: 'please enter count' }],
+  }),
+);
 const currenDate = computed(() => dayjs(route.params.date as string).format(FORMAT_DATE));
 function isBeforeDay(day: DateType) {
   return currenDay.value < day;
 }
 
 function onDelete(key: Record<string, any>) {
-  listMuscleList.value = listMuscleList.value.filter(e => e.exercise !== key.exercise);
+  listMuscle.value = listMuscle.value.filter(e => e.exercise !== key.exercise);
+}
+function showDrawer() {
+  open.value = true;
 }
 
-watch(() => muscleSelect.value, (val) => {
-  if (val.includes(MuscleGroup.Chest))
-    listMuscleList.value = [...dayChest];
-});
-
-function howCountApproaches(value: number) {
-  const list = [];
-  for (let i = 0; i < value; ++i) {
-    list.push({
-      approach: `${i + 1} Подход`,
-      count: 0,
-    });
-  }
-  return list;
+function onClose() {
+  open.value = false;
+}
+function onSave() {
+  listMuscle.value.push({
+    exercise: form.name,
+    approaches: form.count,
+  });
+  open.value = false;
+  resetFields();
+}
+function onFinishFailed(
+  _name: string | number | string[] | number[],
+  status: boolean,
+  _errors: string[],
+) {
+  validField.value = !status;
 }
 </script>
