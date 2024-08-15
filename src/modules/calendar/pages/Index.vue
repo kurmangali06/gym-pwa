@@ -3,14 +3,7 @@
     v-model:value="value"
     :disabled-date="(date) => date.isAfter(new Date())"
     @select="onSelectDay"
-  >
-    <!-- <template #monthCellRender="{ current }">
-      <div v-if="getMonthData(current)" class="notes-month">
-        <section>{{ getMonthData(current) }}</section>
-        <span>Backlog number</span>
-      </div>
-    </template> -->
-  </ACalendar>
+  />
 </template>
 
 <script setup lang="ts">

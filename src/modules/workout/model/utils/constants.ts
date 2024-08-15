@@ -65,18 +65,31 @@ export const MuscleList = ref([
 export const columns = [
   {
     title: 'Упражнение',
-    dataIndex: 'exercise',
+    key: 'exercise',
     width: '40%',
   },
   {
     title: 'Подходы',
-    dataIndex: 'approaches',
+    key: 'approaches',
     width: '40%',
   },
   {
     title: 'Действия',
-    dataIndex: 'operation',
+    key: 'operation',
     width: '20%',
   },
 
+];
+
+export const subColumns = [
+  {
+    title: 'Подходы',
+    key: 'approach',
+    width: '50%',
+  },
+  {
+    title: 'Количество',
+    key: 'count',
+    width: '50%',
+  },
 ];
