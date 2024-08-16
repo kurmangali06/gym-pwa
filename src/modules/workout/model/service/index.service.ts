@@ -44,11 +44,21 @@ export function useWorkoutService() {
       },
     });
   }
+  async function getCurrentWorkout(date: Date) {
+    return Executor.run({
+      request: WorkoutRepository.CurrentWorkout(date),
+      loadingState,
+      onResult(data) {
+        return data;
+      },
+    });
+  }
   return {
     getWorkout,
     createExercise,
     deleteExercise,
     createCurrentWorkout,
+    getCurrentWorkout,
     isLoading: loadingState.isLoading,
   };
 }

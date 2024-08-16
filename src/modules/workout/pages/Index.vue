@@ -39,6 +39,7 @@
 </template>
 
 <script setup lang="ts">
+import dayjs from 'dayjs';
 import { useWorkoutService } from '../model/service/index.service';
 import { useWorkoutPageService } from '../model/service/workout.page.service';
 import Table from '../ui/Table.vue';
@@ -52,6 +53,7 @@ const {
   selectList,
   isBeforeDay,
 } = useWorkoutPageService();
-const { getWorkout, isLoading } = useWorkoutService();
+const { getWorkout, isLoading, getCurrentWorkout } = useWorkoutService();
 getWorkout();
+getCurrentWorkout(dayjs().toDate());
 </script>
