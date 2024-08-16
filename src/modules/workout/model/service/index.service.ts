@@ -35,10 +35,20 @@ export function useWorkoutService() {
       },
     });
   }
+  async function createCurrentWorkout(body: any) {
+    return Executor.run({
+      request: WorkoutRepository.postCurrentWorkout(body),
+      loadingState,
+      onResult(data) {
+        return data;
+      },
+    });
+  }
   return {
     getWorkout,
     createExercise,
     deleteExercise,
+    createCurrentWorkout,
     isLoading: loadingState.isLoading,
   };
 }

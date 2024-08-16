@@ -9,3 +9,7 @@ export interface IMuscleValue {
   approaches: number
   type: MuscleGroup
 }
+export interface IApproacher {
+  count: number
+  weigh: number
+}

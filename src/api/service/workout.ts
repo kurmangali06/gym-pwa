@@ -1,3 +1,4 @@
+import Dexie from 'dexie';
 import db from '../db/workout';
 
 function prepareDataForStorage<T>(data: T): T {
@@ -30,6 +31,28 @@ export async function deleteExercise(id: string) {
     return 'sucess';
   } catch (error) {
     console.error('Error deleting object from the store', error);
+    throw error;
+  }
+}
+
+export async function getCurrentWorkout(startDate: string, endDate?: string) {
+  try {
+    return await db.currentWorkout.where('date')
+      .between(startDate, endDate || Dexie.maxKey, true, true)
+      .toArray();
+  } catch (error) {
+    console.error('Error GET', error);
+    throw error;
+  }
+}
+
+export async function createCurrentWorkout(body: any) {
+  try {
+    const serializableData = prepareDataForStorage<any>(body);
+    const addedItemId = await db.currentWorkout.add(serializableData);
+    return addedItemId;
+  } catch (error) {
+    console.error('Error POST', error);
     throw error;
   }
 }
