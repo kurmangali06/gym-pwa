@@ -77,6 +77,7 @@ export function useWorkoutTableService(muscleSelect: MuscleGroup[]) {
       ...exercise.value,
       type: current.value?.type,
       date: new Date(),
+      name: current.value?.exercise,
     };
 
     await createCurrentWorkout(formData);

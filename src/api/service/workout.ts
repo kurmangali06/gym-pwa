@@ -37,7 +37,7 @@ export async function deleteExercise(id: string) {
 
 export async function getCurrentWorkout(startDate: string, endDate?: string) {
   try {
-    return await db.currentWorkout.where('date')
+    return await db.currentWorkoutTable.where('date')
       .between(startDate, endDate || Dexie.maxKey, true, true)
       .toArray();
   } catch (error) {
@@ -49,7 +49,7 @@ export async function getCurrentWorkout(startDate: string, endDate?: string) {
 export async function createCurrentWorkout(body: any) {
   try {
     const serializableData = prepareDataForStorage<any>(body);
-    const addedItemId = await db.currentWorkout.add(serializableData);
+    const addedItemId = await db.currentWorkoutTable.add(serializableData);
     return addedItemId;
   } catch (error) {
     console.error('Error POST', error);
