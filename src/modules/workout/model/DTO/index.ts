@@ -1,4 +1,4 @@
-export interface IMuscleValue {
-  exercise: string
-  approaches: number
+export interface ILabelValue {
+  value: string
+  label: string
 }

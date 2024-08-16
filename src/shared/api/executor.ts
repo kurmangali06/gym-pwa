@@ -1,4 +1,3 @@
-import type { AxiosResponse } from 'axios';
 import type { LoadingService } from 'shared/lib/types/app/app';
 import { useGlobalLoading } from '../lib/composables/useLoading';
 
@@ -7,7 +6,7 @@ export enum LoadingType {
 }
 
 export interface ExecutorOptions<T> {
-  request: Promise<AxiosResponse<T>>
+  request: Promise<T>
   loadingState?: LoadingService
   loadingType?: LoadingType
   ignoreError?: boolean
@@ -20,7 +19,7 @@ export interface ExecutorOptions<T> {
 const globalLoadingState = useGlobalLoading();
 
 export abstract class Executor {
-  static async run<T = any>(options: ExecutorOptions<T>): Promise<AxiosResponse<T>> {
+  static async run<T = any>(options: ExecutorOptions<T>): Promise<T> {
     const {
       request,
       onResult,
@@ -37,22 +36,21 @@ export abstract class Executor {
         loading ? loadingState.startLoading() : loadingState.stopLoading();
     };
 
-    const handleError = (error: AxiosResponse<T>) => {
+    const handleError = (error: any) => {
       onError?.(error);
     };
 
     try {
       loading(true);
 
-      const result = await request as AxiosResponse<T>;
+      const result = await request;
 
-      onResult?.(result.data);
+      onResult?.(result);
 
       return result;
     } catch (error) {
-      handleError(error as AxiosResponse<T>);
-
-      return error as AxiosResponse<T>;
+      handleError(error);
+      throw error;
     } finally {
       loading(false);
       onComplete?.();

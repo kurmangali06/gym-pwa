@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AAlert: typeof import('ant-design-vue/es')['Alert']
     AButton: typeof import('ant-design-vue/es')['Button']
     ACalendar: typeof import('ant-design-vue/es')['Calendar']
     ACard: typeof import('ant-design-vue/es')['Card']
@@ -21,6 +22,7 @@ declare module 'vue' {
     APopconfirm: typeof import('ant-design-vue/es')['Popconfirm']
     ARadio: typeof import('ant-design-vue/es')['Radio']
     ARadioGroup: typeof import('ant-design-vue/es')['RadioGroup']
+    ASelect: typeof import('ant-design-vue/es')['Select']
     ATable: typeof import('ant-design-vue/es')['Table']
     ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     RouterLink: typeof import('vue-router')['RouterLink']
