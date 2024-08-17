@@ -53,6 +53,15 @@ export function useWorkoutService() {
       },
     });
   }
+  async function getWorkoutsAll() {
+    return Executor.run({
+      request: WorkoutRepository.getWorkoutsAll(),
+      loadingState,
+      onResult(data) {
+        return data;
+      },
+    });
+  }
   return {
     getWorkout,
     createExercise,
@@ -60,5 +69,6 @@ export function useWorkoutService() {
     createCurrentWorkout,
     getCurrentWorkout,
     isLoading: loadingState.isLoading,
+    getWorkoutsAll,
   };
 }

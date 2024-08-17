@@ -1,5 +1,5 @@
 import type { IMuscleValue } from 'shared/model/base.dto';
-import { createCurrentWorkout, createExercise, deleteExercise, getAllWorkout, getCurrentWorkout } from '../../../api/service/workout';
+import { createCurrentWorkout, createExercise, deleteExercise, getAllWorkout, getCurrentWorkout, getWorkoutAll } from '../../../api/service/workout';
 
 export class WorkoutRepository {
   static async getWorkout() {
@@ -28,6 +28,12 @@ export class WorkoutRepository {
 
   static async CurrentWorkout(date: any) {
     const response = await getCurrentWorkout(date);
+
+    return response;
+  }
+
+  static async getWorkoutsAll() {
+    const response = await getWorkoutAll();
 
     return response;
   }

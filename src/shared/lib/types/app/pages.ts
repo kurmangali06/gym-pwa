@@ -1,8 +1,10 @@
 export enum PageName {
   BASE_LAYOUT = 'Default',
   BASE_HOME = 'Home',
-  BASE_CALENDAR = 'calendar',
-  BASE_WORKOUT = 'workout',
+  BASE_LIST = 'List',
+  BASE_WORKOUT = 'Workout',
+  BASE_SELECT = 'Select',
+  BASE_EXERCISE = 'Exercise',
 }
 
 export enum DateType {
@@ -22,4 +24,10 @@ export enum MuscleGroup {
   Press = 'press',
   Back = 'back',
   Logs = 'logs',
+}
+
+export enum MixGroup {
+  ShouldersLogs = 'ShouldersLogs',
+  BicepsBack = 'BicepsBack',
+  TricepsChest = 'TricepsChest',
 }

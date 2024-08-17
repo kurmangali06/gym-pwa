@@ -1,5 +1,5 @@
 export default {
-  '*.{vue,ts,js,json,yml,yaml,md}': ['eslint --fix'],
+  '*.{vue,ts,json,yml,yaml,md}': ['eslint --fix'],
   // Don't remove arrow function
   '*.{vue,ts}': () => 'vue-tsc --noEmit',
 };

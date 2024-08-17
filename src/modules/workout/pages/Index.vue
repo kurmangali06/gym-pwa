@@ -1,59 +1,52 @@
 <template>
-  <ACard v-if="!isLoading">
-    <template #title>
-      <h2 class="flex justify-center items-center font-bold text-2xl">
-        {{ `Тренировка ${currentDate}` }}
-      </h2>
+  <VanTabs
+    v-if="listTag.length"
+    v-model:active="activeName"
+    animated
+  >
+    <template
+      v-for="tag in listTag"
+      :key="tag.value"
+    >
+      <VanTab :title="tag.label">
+        <VanCard
+          v-for="item in exercisesByMuscleGroup[listTag[activeName].value]"
+          :key="item.value"
+          :desc="item.description"
+          :thumb="item.imageUrl"
+          :title="item.label"
+        >
+          <template #footer>
+            <VanButton
+              plain
+              size="mini"
+              type="primary"
+              @click="watchVideo(item.videoUrl)"
+            >
+              Ссылка на видео
+            </VanButton>
+            <VanButton size="mini" @click="startExercise(item.value, listTag[activeName].value)">
+              Начать
+            </VanButton>
+          </template>
+        </VanCard>
+      </VanTab>
     </template>
-    <ACardGrid style="width: 100%">
-      <ARadioGroup
-        v-model:value="selectDay"
-        class="grid grid-cols-3"
-        style="pointer-events: none"
-      >
-        <ARadio
-          v-for="item in dayList"
-          :key="item.value"
-          :disabled="isBeforeDay(item.value)"
-          :value="item.value"
-        >
-          {{ item.label }}
-        </ARadio>
-      </ARadioGroup>
-    </ACardGrid>
-    <ACardGrid style="width: 100%; text-align: center">
-      <ACheckboxGroup v-model:value="muscleSelect" class="grid grid-cols-3">
-        <ACheckbox
-          v-for="item in MuscleList"
-          :key="item.value"
-          :value="item.value"
-        >
-          {{ item.label }}
-        </ACheckbox>
-      </ACheckboxGroup>
-    </ACardGrid>
-    <ACardGrid style="width: 100%; padding: 0">
-      <Table :muscle-select="muscleSelect" :select-list="selectList" />
-    </ACardGrid>
-  </ACard>
+  </VanTabs>
 </template>
 
 <script setup lang="ts">
 import dayjs from 'dayjs';
 import { useWorkoutService } from '../model/service/index.service';
 import { useWorkoutPageService } from '../model/service/workout.page.service';
-import Table from '../ui/Table.vue';
 
 const {
-  selectDay,
-  muscleSelect,
-  currentDate,
-  MuscleList,
-  dayList,
-  selectList,
-  isBeforeDay,
+  startExercise,
+  activeName,
+  listTag,
+  watchVideo,
+  exercisesByMuscleGroup,
 } = useWorkoutPageService();
-const { getWorkout, isLoading, getCurrentWorkout } = useWorkoutService();
-getWorkout();
+const { getCurrentWorkout } = useWorkoutService();
 getCurrentWorkout(dayjs().toDate());
 </script>

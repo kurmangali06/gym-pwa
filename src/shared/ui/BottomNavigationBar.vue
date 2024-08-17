@@ -1,5 +1,5 @@
 <template>
-  <nav class="flex justify-around items-center border border-solid border-blue-500 rounded-t-2xl p-3">
+  <nav class="flex justify-around items-center">
     <div
       v-for="menu in menuList"
       :key="menu.link.name"
@@ -18,11 +18,10 @@
 import { PageName } from 'shared/lib/types/app/pages';
 import { useRoute } from 'vue-router';
 import {
-  CalendarOutlined,
   CustomerServiceOutlined,
   HomeOutlined,
+  OrderedListOutlined,
 } from '@ant-design/icons-vue';
-import dayjs from 'dayjs';
 
 const route = useRoute();
 
@@ -37,19 +36,16 @@ const menuList = ref([
     icon: HomeOutlined,
   },
   {
-    title: 'календарь',
+    title: 'Мои записи',
     link: {
-      name: PageName.BASE_CALENDAR,
+      name: PageName.BASE_LIST,
     },
-    icon: CalendarOutlined,
+    icon: OrderedListOutlined,
   },
   {
     title: 'тренировка',
     link: {
-      name: PageName.BASE_WORKOUT,
-      params: {
-        date: `${dayjs().toDate()}`,
-      },
+      name: PageName.BASE_SELECT,
     },
     icon: CustomerServiceOutlined,
   },

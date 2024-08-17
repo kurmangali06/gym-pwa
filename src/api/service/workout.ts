@@ -45,7 +45,15 @@ export async function getCurrentWorkout(startDate: string, endDate?: string) {
     throw error;
   }
 }
-
+export async function getWorkoutAll() {
+  try {
+    return await db.currentWorkoutTable
+      .toArray();
+  } catch (error) {
+    console.error('Error GET', error);
+    throw error;
+  }
+}
 export async function createCurrentWorkout(body: any) {
   try {
     const serializableData = prepareDataForStorage<any>(body);
