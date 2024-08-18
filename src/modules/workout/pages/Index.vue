@@ -8,7 +8,7 @@
       v-for="tag in listTag"
       :key="tag.value"
     >
-      <VanTab :title="tag.label">
+      <VanTab class="mb-24" :title="tag.label">
         <VanCard
           v-for="item in exercisesByMuscleGroup[listTag[activeName].value]"
           :key="item.value"

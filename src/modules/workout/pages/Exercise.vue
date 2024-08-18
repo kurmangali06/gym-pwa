@@ -80,25 +80,31 @@ const { createCurrentWorkout } = useWorkoutService();
 async function saveExercise() {
   const formData = {
     ...exercise.value,
-    type: route.params.route,
+    type: route.params.type,
     date: new Date(),
     name: getCurrentExercise.value?.value,
+    label: getCurrentExercise.value?.label,
+    description: getCurrentExercise.value?.description,
   };
 
   const res = await createCurrentWorkout(formData);
+
   if (res) {
+    showNotify({ type: 'success', message: 'Запись добавлена', duration: 20 });
     router.push({
       name: PageName.BASE_WORKOUT,
       params: {
         types: JSON.stringify(workoutStore.getWorkoutList),
       },
     });
+  } else {
+    showNotify({ type: 'danger', message: 'Что то пошло не так' });
   }
 }
 onMounted(() => {
   startLoading();
   if (getCurrentExercise.value) {
-    for (let i = 0; i <= getCurrentExercise.value?.sets; i++) {
+    for (let i = 0; i < getCurrentExercise.value?.sets; i++) {
       exercise.value[`${i}approacher`] = {
         count: 0,
         weigh: 0,

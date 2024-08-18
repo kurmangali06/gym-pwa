@@ -62,6 +62,16 @@ export function useWorkoutService() {
       },
     });
   }
+
+  async function deleteWorkoutExercise(data: Date) {
+    return Executor.run({
+      request: WorkoutRepository.deleteWorkoutExercise(data),
+      loadingState,
+      onResult(data) {
+        return data;
+      },
+    });
+  }
   return {
     getWorkout,
     createExercise,
@@ -70,5 +80,6 @@ export function useWorkoutService() {
     getCurrentWorkout,
     isLoading: loadingState.isLoading,
     getWorkoutsAll,
+    deleteWorkoutExercise,
   };
 }

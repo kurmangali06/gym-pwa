@@ -61,6 +61,16 @@ export const MuscleList = ref([
     label: 'Ноги',
   },
 ]);
+
+export const dictionaryMuscleGroup = {
+  [MuscleGroup.Shoulders]: 'Плечи',
+  [MuscleGroup.Biceps]: 'Бицепс',
+  [MuscleGroup.Triceps]: 'Трицепс',
+  [MuscleGroup.Chest]: 'Грудь',
+  [MuscleGroup.Press]: 'Пресс',
+  [MuscleGroup.Back]: 'Спина',
+  [MuscleGroup.Logs]: 'Ноги',
+};
 export const MuscleListVant = ref([
   {
     id: MixGroup.ShouldersLogs,
@@ -139,7 +149,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Overhead Press',
       label: 'Жим над головой',
-      sets: 4,
+      sets: 5,
       description: 'Основное упражнение для развития дельтовидных мышц, выполняемое стоя или сидя.',
       videoUrl: 'https://www.youtube.com/watch?v=2yjwXTZQDDI',
       imageUrl: 'https://example.com/images/overhead-press.jpg', // Placeholder URL
@@ -163,7 +173,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Arnold Press',
       label: 'Жим Арнольда',
-      sets: 4,
+      sets: 5,
       description: 'Вариация жима с дополнительным разворотом кистей, названная в честь Арнольда Шварценеггера.',
       videoUrl: 'https://www.youtube.com/watch?v=6Z15_WdXmVw',
       imageUrl: 'https://example.com/images/arnold-press.jpg', // Placeholder URL
@@ -176,12 +186,28 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
       videoUrl: 'https://www.youtube.com/watch?v=rep-qVOkqgk',
       imageUrl: 'https://example.com/images/face-pulls.jpg', // Placeholder URL
     },
+    {
+      value: 'Rear Delt Flyes',
+      label: 'Махи на задние дельты',
+      sets: 3,
+      description: 'Упражнение для тренировки задних дельт, выполняемое с гантелями или на тренажере.',
+      videoUrl: 'https://www.youtube.com/watch?v=J5Qka7MCn5A', // Placeholder URL
+      imageUrl: 'https://example.com/images/rear-delt-flyes.jpg', // Placeholder URL
+    },
+    {
+      value: 'Lateral Raises',
+      label: 'Махи на средние дельты',
+      sets: 3,
+      description: 'Упражнение для тренировки средних дельт, выполняемое с гантелями для увеличения ширины плеч.',
+      videoUrl: 'https://www.youtube.com/watch?v=3VcKaXpzqRo', // Placeholder URL
+      imageUrl: 'https://example.com/images/lateral-raises.jpg', // Placeholder URL
+    },
   ],
   [MuscleGroup.Biceps]: [
     {
       value: 'Barbell Curl',
       label: 'Сгибание рук со штангой',
-      sets: 4,
+      sets: 5,
       description: 'Классическое упражнение для увеличения массы и силы бицепсов.',
       videoUrl: 'https://www.youtube.com/watch?v=kwG2ipFRgfo',
       imageUrl: 'https://example.com/images/barbell-curl.jpg', // Placeholder URL
@@ -213,7 +239,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Preacher Curl',
       label: 'Сгибание рук на скамье Скотта',
-      sets: 4,
+      sets: 5,
       description: 'Упражнение, обеспечивающее глубокую растяжку и сокращение бицепса.',
       videoUrl: 'https://www.youtube.com/watch?v=-M4-G8p8fmc',
       imageUrl: 'https://example.com/images/preacher-curl.jpg', // Placeholder URL
@@ -223,7 +249,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Tricep Dips',
       label: 'Отжимания на трицепс',
-      sets: 4,
+      sets: 5,
       description: 'Эффективное упражнение для работы над трицепсами, выполняемое на брусьях или скамье.',
       videoUrl: 'https://www.youtube.com/watch?v=0326dy_-CzM',
       imageUrl: 'https://example.com/images/tricep-dips.jpg', // Placeholder URL
@@ -239,7 +265,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Tricep Pushdown',
       label: 'Разгибание рук на блоке',
-      sets: 4,
+      sets: 5,
       description: 'Изолированное упражнение для трицепсов, выполняемое на канатном тренажере.',
       videoUrl: 'https://www.youtube.com/watch?v=2-LAMcpzODU',
       imageUrl: 'https://example.com/images/tricep-pushdown.jpg', // Placeholder URL
@@ -247,7 +273,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Close-Grip Bench Press',
       label: 'Жим узким хватом',
-      sets: 4,
+      sets: 5,
       description: 'Базовое упражнение для развития массы и силы трицепсов.',
       videoUrl: 'https://www.youtube.com/watch?v=oqPNliN7UTo',
       imageUrl: 'https://example.com/images/close-grip-bench-press.jpg', // Placeholder URL
@@ -255,7 +281,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Skull Crushers',
       label: 'Французский жим лёжа',
-      sets: 4,
+      sets: 5,
       description: 'Упражнение для изоляции трицепсов, выполняемое с EZ-штангой или гантелями.',
       videoUrl: 'https://www.youtube.com/watch?v=d_KZxkY_0cM',
       imageUrl: 'https://example.com/images/skull-crushers.jpg', // Placeholder URL
@@ -265,7 +291,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Bench Press',
       label: 'Жим лёжа',
-      sets: 4,
+      sets: 5,
       description: 'Основное базовое упражнение для развития силы и массы грудных мышц.',
       videoUrl: 'https://www.youtube.com/watch?v=rT7DgCr-3pg',
       imageUrl: 'https://example.com/images/bench-press.jpg', // Placeholder URL
@@ -273,7 +299,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Incline Bench Press',
       label: 'Жим на наклонной скамье',
-      sets: 4,
+      sets: 5,
       description: 'Упражнение, акцентирующее нагрузку на верхнюю часть грудных мышц.',
       videoUrl: 'https://www.youtube.com/watch?v=SrqOu55lrYU',
       imageUrl: 'https://example.com/images/incline-bench-press.jpg', // Placeholder URL
@@ -289,7 +315,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Push-Ups',
       label: 'Отжимания',
-      sets: 4,
+      sets: 5,
       description: 'Базовое упражнение с собственным весом для тренировки грудных, дельт и трицепсов.',
       videoUrl: 'https://www.youtube.com/watch?v=_l3ySVKYVJ8',
       imageUrl: 'https://example.com/images/push-ups.jpg', // Placeholder URL
@@ -297,7 +323,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Chest Dips',
       label: 'Отжимания на брусьях для грудных',
-      sets: 4,
+      sets: 5,
       description: 'Упражнение для нижней части грудных мышц, выполняемое на брусьях.',
       videoUrl: 'https://www.youtube.com/watch?v=2z8JmcrW-As',
       imageUrl: 'https://example.com/images/chest-dips.jpg', // Placeholder URL
@@ -307,7 +333,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Deadlift',
       label: 'Становая тяга',
-      sets: 4,
+      sets: 5,
       description: 'Базовое многосуставное упражнение, развивающее силу и массу спины, ног и кора.',
       videoUrl: 'https://www.youtube.com/watch?v=ytGaGIn3SjE',
       imageUrl: 'https://example.com/images/deadlift.jpg', // Placeholder URL
@@ -315,7 +341,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Pull-Ups',
       label: 'Подтягивания',
-      sets: 4,
+      sets: 5,
       description: 'Упражнение с собственным весом для тренировки широчайших мышц спины.',
       videoUrl: 'https://www.youtube.com/watch?v=eGo4IYlbE5g',
       imageUrl: 'https://example.com/images/pull-ups.jpg', // Placeholder URL
@@ -323,7 +349,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Bent-Over Rows',
       label: 'Тяга штанги в наклоне',
-      sets: 4,
+      sets: 5,
       description: 'Основное упражнение для развития средней части спины и ромбовидных мышц.',
       videoUrl: 'https://www.youtube.com/watch?v=vT2GjY_Umpw',
       imageUrl: 'https://example.com/images/bent-over-rows.jpg', // Placeholder URL
@@ -331,7 +357,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Lat Pulldown',
       label: 'Тяга верхнего блока',
-      sets: 4,
+      sets: 5,
       description: 'Упражнение для тренировки широчайших мышц спины, выполняемое на тренажере.',
       videoUrl: 'https://www.youtube.com/watch?v=CAwf7n6Luuc',
       imageUrl: 'https://example.com/images/lat-pulldown.jpg', // Placeholder URL
@@ -339,7 +365,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'T-Bar Row',
       label: 'Тяга Т-грифа',
-      sets: 4,
+      sets: 5,
       description: 'Упражнение для развития толщины спины, выполняемое с Т-грифом.',
       videoUrl: 'https://www.youtube.com/watch?v=9efgcAjQe7E',
       imageUrl: 'https://example.com/images/t-bar-row.jpg', // Placeholder URL
@@ -349,7 +375,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Squat',
       label: 'Приседания',
-      sets: 4,
+      sets: 5,
       description: 'Основное базовое упражнение для тренировки квадрицепсов, ягодиц и кора.',
       videoUrl: 'https://www.youtube.com/watch?v=aclHkVaku9U',
       imageUrl: 'https://example.com/images/squat.jpg', // Placeholder URL
@@ -365,7 +391,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Leg Press',
       label: 'Жим ногами',
-      sets: 4,
+      sets: 5,
       description: 'Изолирующее упражнение для тренировки квадрицепсов и ягодиц, выполняемое на тренажере.',
       videoUrl: 'https://www.youtube.com/watch?v=IZxyjW7MPJQ',
       imageUrl: 'https://example.com/images/leg-press.jpg', // Placeholder URL
@@ -381,7 +407,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Calf Raises',
       label: 'Подъёмы на носки',
-      sets: 4,
+      sets: 5,
       description: 'Упражнение для тренировки икроножных мышц.',
       videoUrl: 'https://www.youtube.com/watch?v=-M4-G8p8fmc',
       imageUrl: 'https://example.com/images/calf-raises.jpg', // Placeholder URL
@@ -389,7 +415,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Hip Thrust',
       label: 'Тяга ягодиц',
-      sets: 4,
+      sets: 5,
       description: 'Упражнение для тренировки ягодичных мышц, выполняемое с использованием штанги или гантелей.',
       videoUrl: 'https://www.youtube.com/watch?v=EMn9Jc4k_rU',
       imageUrl: 'https://example.com/images/hip-thrust.jpg', // Placeholder URL
@@ -397,7 +423,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Glute Bridge',
       label: 'Ягодичный мостик',
-      sets: 4,
+      sets: 5,
       description: 'Упражнение для развития ягодиц и укрепления кора.',
       videoUrl: 'https://www.youtube.com/watch?v=8bbE64NuDTU',
       imageUrl: 'https://example.com/images/glute-bridge.jpg', // Placeholder URL
@@ -421,7 +447,7 @@ export const exercisesByMuscleGroup: Record<MuscleGroup, Exercise[]> = {
     {
       value: 'Sumo Deadlift',
       label: 'Сумо становая тяга',
-      sets: 4,
+      sets: 5,
       description: 'Упражнение, акцентирующее нагрузку на внутреннюю часть бедер и ягодицы.',
       videoUrl: 'https://www.youtube.com/watch?v=9Jg8JpVVtXg',
       imageUrl: 'https://example.com/images/sumo-deadlift.jpg', // Placeholder URL

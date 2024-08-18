@@ -64,3 +64,12 @@ export async function createCurrentWorkout(body: any) {
     throw error;
   }
 }
+export async function deleteCurrentWorkout(data: Date) {
+  try {
+    await db.currentWorkoutTable.delete(data);
+    return true;
+  } catch (error) {
+    console.error('Error deleting object from the store', error);
+    throw error;
+  }
+}

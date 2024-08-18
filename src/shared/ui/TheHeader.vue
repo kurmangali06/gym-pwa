@@ -7,8 +7,11 @@
 </template>
 
 <script setup lang="ts">
+import type { PageName } from 'shared/lib/types/app/pages';
+import { dictionaryPage } from 'shared/lib/types/app/pages';
+
 const router = useRouter();
 const route = useRoute();
 
-const namePage = computed(() => route.name as string);
+const namePage = computed(() => dictionaryPage[route.name as PageName]);
 </script>

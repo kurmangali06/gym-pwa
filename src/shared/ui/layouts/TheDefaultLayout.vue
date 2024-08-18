@@ -1,10 +1,10 @@
 <template>
-  <ALayout class="layout">
+  <ALayout class="flex flex-col">
     <TheHeader />
-    <ALayoutContent class="pb-[90px] h-[90vh]">
+    <ALayoutContent class="flex-grow">
       <RouterView />
     </ALayoutContent>
-    <ALayoutFooter class="fixed left-0 right-0 bottom-0  border border-solid border-blue-500 rounded-t-2xl p-3">
+    <ALayoutFooter class="flex-grow-0 fixed left-0 right-0 bottom-0  border border-solid border-blue-500 rounded-t-2xl p-3">
       <BottomNavigationBar />
     </ALayoutFooter>
   </ALayout>
