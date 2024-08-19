@@ -64,6 +64,16 @@ export async function createCurrentWorkout(body: any) {
     throw error;
   }
 }
+export async function updateCurrentWorkout(date: Date, body: any) {
+  try {
+    const serializableData = prepareDataForStorage<any>(body);
+    const addedItemId = await db.currentWorkoutTable.update(date, serializableData);
+    return addedItemId;
+  } catch (error) {
+    console.error('Error POST', error);
+    throw error;
+  }
+}
 export async function deleteCurrentWorkout(data: Date) {
   try {
     await db.currentWorkoutTable.delete(data);

@@ -87,18 +87,13 @@ function getALL() {
     list.value = res.reduce((acc, item) => {
       const date = new Date(item.date);
       const yearMonthDay = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`; // Формат YYYY-MM-DD
-
-      // Создание записи для каждой даты, если еще не существует
       if (!acc[yearMonthDay]) {
         acc[yearMonthDay] = {};
         countDate.value.push(yearMonthDay);
       }
-
-      // Создание записи для каждого типа, если еще не существует
       if (!acc[yearMonthDay][item.type])
         acc[yearMonthDay][item.type] = [];
 
-      // Добавление объекта в соответствующий тип и дату
       acc[yearMonthDay][item.type].push(item);
 
       return acc;
@@ -124,8 +119,8 @@ async function deleteExercise(e: IStepsExercise) {
   }).catch((_err) => {
     showNotify({ type: 'warning', message: _err });
   }).finally(() => {
-    getALL();
     show.value = false;
+    window.location.reload();
   });
 }
 </script>

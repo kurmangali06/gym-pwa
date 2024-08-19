@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
+    "@tresjs/core": "^4.2.6",
     "@vant/auto-import-resolver": "^1.2.1",
     "ant-design-vue": "^4.2.3",
     "axios": "^1.6.8",
@@ -22,6 +23,7 @@
     "dexie": "^4.0.8",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
+    "three": "^0.167.1",
     "vant": "^4.9.4",
     "vue": "^3.4.21",
     "vue-i18n": "^9.13.0",
@@ -33,6 +35,7 @@
     "@commitlint/config-conventional": "17.1.0",
     "@tsconfig/node20": "^20.1.4",
     "@types/node": "^20.12.5",
+    "@types/three": "^0.167.1",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/tsconfig": "^0.5.1",

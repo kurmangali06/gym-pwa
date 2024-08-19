@@ -1,6 +1,7 @@
 <template>
-  gym today
+  <TheeContant />
 </template>
 
-<script setup>
+<script setup lang="ts">
+import TheeContant from 'shared/ui/TheeContant.vue';
 </script>

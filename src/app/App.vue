@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <LoadingSpinner :is-visible="isLoading" />
     <RouterView />
   </div>
@@ -21,3 +21,12 @@ const { isLoading } = useGlobalLoading();
 
 localeStore.setLocale(Locale.RU);
 </script>
+
+<style scoped>
+.container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+</style>

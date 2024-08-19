@@ -6,11 +6,14 @@ import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import { VantImports, VantResolver } from '@vant/auto-import-resolver';
 import { VitePWA } from 'vite-plugin-pwa';
+import { templateCompilerOptions } from '@tresjs/core';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const plugins = [
-    vue(),
+    vue({
+      ...templateCompilerOptions,
+    }),
     AutoImport({
       imports: ['vue', 'vue-router', VantImports()],
       dts: 'src/auto-imports.d.ts',
@@ -62,6 +65,7 @@ export default defineConfig(({ mode }) => {
         prefer_related_applications: false,
       },
     }),
+
   ];
   return {
     plugins,

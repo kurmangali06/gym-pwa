@@ -1,16 +1,32 @@
 <template>
   <template v-if="!isLoading">
-    <VanTag
-      class="my-3 ml-3"
-      size="large"
-      type="success"
-    >
-      {{ getCurrentExercise?.label }}
-    </VanTag>
+    <div class="flex items-center gap-2">
+      <VanTag
+        class="my-3 ml-3"
+        size="large"
+        type="success"
+      >
+        {{ getCurrentExercise?.label }}
+      </VanTag>
+      <VanButton
+        :disabled="steps === 1"
+        size="mini"
+        @click="deleteSteps"
+      >
+        Уменьшить подход
+      </VanButton>
+      <VanButton
+        size="mini"
+        @click="addSteps"
+      >
+        Добавить подход
+      </VanButton>
+    </div>
+
     <VanSteps
       :active="active"
     >
-      <VanStep v-for="step in getCurrentExercise?.sets" :key="step">
+      <VanStep v-for="step in steps" :key="step">
         подход {{ step }}
       </VanStep>
     </VanSteps>
@@ -23,15 +39,15 @@
         Пред поход
       </VanButton>
       <VanButton
-        v-if="getCurrentExercise?.sets"
-        :disabled="active === getCurrentExercise?.sets - 1"
+        v-if="steps"
+        :disabled="active === steps - 1"
         size="normal"
         @click="active = active + 1"
       >
         Cлед подход
       </VanButton>
       <VanButton
-        v-if="getCurrentExercise?.sets === active + 1"
+        v-if="steps === active + 1"
         size="normal"
         type="primary"
         @click="saveExercise"
@@ -57,6 +73,7 @@
         type="number"
       />
     </VanCellGroup>
+    <TheeExercise />
   </template>
 </template>
 
@@ -64,6 +81,8 @@
 import { type MuscleGroup, PageName } from 'shared/lib/types/app/pages';
 import type { IApproacher } from 'shared/model/base.dto';
 import { useGlobalLoading } from 'shared/lib/composables/useLoading';
+import dayjs from 'dayjs';
+
 import { exercisesByMuscleGroup } from '../model/utils/constants';
 import { useWorkoutService } from '../model/service/index.service';
 import { useWorkoutStore } from '../model/workout.store';
@@ -74,6 +93,7 @@ const route = useRoute();
 const router = useRouter();
 const getCurrentExercise = computed(() => exercisesByMuscleGroup[route.params.type as MuscleGroup].find(e => e.value === route.params.name as string));
 const exercise = ref<Record<string, IApproacher>>({});
+const steps = ref(0);
 const { isLoading, startLoading, stopLoading } = useGlobalLoading();
 const { createCurrentWorkout } = useWorkoutService();
 
@@ -81,7 +101,7 @@ async function saveExercise() {
   const formData = {
     ...exercise.value,
     type: route.params.type,
-    date: new Date(),
+    date: dayjs().toDate(),
     name: getCurrentExercise.value?.value,
     label: getCurrentExercise.value?.label,
     description: getCurrentExercise.value?.description,
@@ -101,9 +121,22 @@ async function saveExercise() {
     showNotify({ type: 'danger', message: 'Что то пошло не так' });
   }
 }
+
+function addSteps() {
+  steps.value = steps.value + 1;
+  exercise.value[`${steps.value - 1}approacher`] = {
+    count: 0,
+    weigh: 0,
+  };
+}
+function deleteSteps() {
+  steps.value = steps.value - 1;
+  delete exercise.value[`${steps.value}approacher`];
+}
 onMounted(() => {
   startLoading();
   if (getCurrentExercise.value) {
+    steps.value = getCurrentExercise.value?.sets;
     for (let i = 0; i < getCurrentExercise.value?.sets; i++) {
       exercise.value[`${i}approacher`] = {
         count: 0,

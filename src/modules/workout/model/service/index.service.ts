@@ -44,6 +44,15 @@ export function useWorkoutService() {
       },
     });
   }
+  async function updateWorkout(date: Date, body: any) {
+    return Executor.run({
+      request: WorkoutRepository.updateWorkout(date, body),
+      loadingState,
+      onResult(data) {
+        return data;
+      },
+    });
+  }
   async function getCurrentWorkout(date: Date) {
     return Executor.run({
       request: WorkoutRepository.CurrentWorkout(date),
@@ -81,5 +90,6 @@ export function useWorkoutService() {
     isLoading: loadingState.isLoading,
     getWorkoutsAll,
     deleteWorkoutExercise,
+    updateWorkout,
   };
 }
