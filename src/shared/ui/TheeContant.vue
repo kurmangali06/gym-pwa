@@ -5,6 +5,7 @@
 <script setup lang="ts">
 import { onMounted, onUnmounted, ref } from 'vue';
 import * as THREE from 'three';
+import Path from '../../app/assets/gym1.png';
 
 // Импорт TextGeometry
 
@@ -30,7 +31,7 @@ onMounted(() => {
 
   // Загрузка текстуры
   const textureLoader = new THREE.TextureLoader();
-  const texture = textureLoader.load('src/app/assets/gym1.png'); // Путь к вашему изображению
+  const texture = textureLoader.load(Path); // Путь к вашему изображению
 
   // Создание материала с загруженной текстурой
   const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
