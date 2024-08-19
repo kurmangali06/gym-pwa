@@ -30,7 +30,7 @@ onMounted(() => {
 
   // Загрузка текстуры
   const textureLoader = new THREE.TextureLoader();
-  const texture = textureLoader.load('public/images/gym1.png'); // Путь к вашему изображению
+  const texture = textureLoader.load('src/app/assets/gym1.png'); // Путь к вашему изображению
 
   // Создание материала с загруженной текстурой
   const material = new THREE.MeshBasicMaterial({ map: texture, side: THREE.DoubleSide });
