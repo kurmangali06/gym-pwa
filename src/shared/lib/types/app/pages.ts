@@ -5,6 +5,7 @@ export enum PageName {
   BASE_WORKOUT = 'Workout',
   BASE_SELECT = 'Select',
   BASE_EXERCISE = 'Exercise',
+  BASE_CURRENT_WORKOUT = 'CurrentWorkout',
 }
 export const dictionaryPage = {
   [PageName.BASE_HOME]: 'Главная',
@@ -13,6 +14,7 @@ export const dictionaryPage = {
   [PageName.BASE_EXERCISE]: 'Упражнения',
   [PageName.BASE_WORKOUT]: 'Список Упражнения',
   [PageName.BASE_LAYOUT]: 'Default',
+  [PageName.BASE_CURRENT_WORKOUT]: 'Тренировка',
 
 };
 export enum DateType {

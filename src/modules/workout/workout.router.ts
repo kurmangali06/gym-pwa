@@ -18,6 +18,11 @@ export const moduleRoutes: RouteRecordRaw[] = [
     component: () => import('./pages/Index.vue'),
   },
   {
+    path: '/workout/current/:day',
+    name: PageName.BASE_CURRENT_WORKOUT,
+    component: () => import('./pages/WorkoutItem.vue'),
+  },
+  {
     path: '/exercise/:type/:name',
     name: PageName.BASE_EXERCISE,
     component: () => import('./pages/Exercise.vue'),

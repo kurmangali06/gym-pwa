@@ -7,7 +7,7 @@ export const router = createRouter({
     {
       path: '/',
       name: PageName.BASE_LAYOUT,
-      redirect: { name: PageName.BASE_HOME },
+      redirect: { name: PageName.BASE_SELECT },
       component: () => import('shared/ui/layouts/TheDefaultLayout.vue'),
       children: [],
     },
