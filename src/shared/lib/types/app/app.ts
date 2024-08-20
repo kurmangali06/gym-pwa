@@ -12,3 +12,12 @@ export interface LoadingService {
   stopLoading: () => void
   isLoading: ComputedRef<boolean>
 }
+export interface ITextValue<T> {
+  text: string
+  value: T
+}
+
+export enum TypeSort {
+  weigh = 'weigh',
+  count = 'count',
+}

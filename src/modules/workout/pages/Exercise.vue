@@ -126,8 +126,8 @@ function addSteps() {
   active.value = 0;
   steps.value = steps.value + 1;
   exercise.value[`${steps.value - 1}approacher`] = {
-    count: 0,
-    weigh: 0,
+    count: '0',
+    weigh: '0',
   };
 }
 function deleteSteps() {
@@ -141,8 +141,8 @@ onMounted(() => {
     steps.value = getCurrentExercise.value?.sets;
     for (let i = 0; i < getCurrentExercise.value?.sets; i++) {
       exercise.value[`${i}approacher`] = {
-        count: 0,
-        weigh: 0,
+        count: '0',
+        weigh: '0',
       };
     }
   }

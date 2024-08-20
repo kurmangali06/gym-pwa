@@ -1,7 +1,5 @@
 <template>
-  <div>
-    404
-  </div>
+  <VanEmpty description="404" image="search" />
 </template>
 
 <script setup lang="ts">

@@ -39,6 +39,7 @@
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/eslint-config-prettier": "^9.0.0",
     "@vue/tsconfig": "^0.5.1",
+    "apexcharts": "^3.49.1",
     "autoprefixer": "^10.4.19",
     "eslint": "^8.57.0",
     "husky": "^8.0.0",
@@ -54,6 +55,7 @@
     "vite": "^5.2.8",
     "vite-plugin-pwa": "^0.20.1",
     "vite-plugin-vue-devtools": "^7.0.25",
-    "vue-tsc": "^2.0.11"
+    "vue-tsc": "^2.0.11",
+    "vue3-apexcharts": "^1.5.3"
   }
 }

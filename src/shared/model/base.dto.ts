@@ -10,6 +10,6 @@ export interface IMuscleValue {
   type: MuscleGroup
 }
 export interface IApproacher {
-  count: number
-  weigh: number
+  count: string
+  weigh: string
 }

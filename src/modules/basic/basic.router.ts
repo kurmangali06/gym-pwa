@@ -9,7 +9,7 @@ export const moduleRoutes: RouteRecordRaw[] = [
   },
   {
     // Important! Slash prefix ensures that route will be root and child of ErrorPage in same time
-    path: '/:pathMatch(.*)*',
+    path: '/:catchAll(.*)*',
     name: 'Error404',
     component: () => import('modules/basic/pages/Error404.vue'),
   },
