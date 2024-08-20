@@ -7,11 +7,12 @@
 </template>
 
 <script setup lang="ts">
-import type { PageName } from 'shared/lib/types/app/pages';
-import { dictionaryPage } from 'shared/lib/types/app/pages';
+import { PageName, dictionaryPage } from 'shared/lib/types/app/pages';
 
 const router = useRouter();
 const route = useRoute();
 
-const namePage = computed(() => dictionaryPage[route.name as PageName]);
+const namePage = computed(() => {
+  return route.name as PageName === PageName.BASE_CURRENT_WORKOUT ? `${dictionaryPage[route.name as PageName]}: ${route.params.day}` : dictionaryPage[route.name as PageName];
+});
 </script>

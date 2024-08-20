@@ -123,6 +123,7 @@ async function saveExercise() {
 }
 
 function addSteps() {
+  active.value = 0;
   steps.value = steps.value + 1;
   exercise.value[`${steps.value - 1}approacher`] = {
     count: 0,
@@ -130,6 +131,7 @@ function addSteps() {
   };
 }
 function deleteSteps() {
+  active.value = 0;
   steps.value = steps.value - 1;
   delete exercise.value[`${steps.value}approacher`];
 }
