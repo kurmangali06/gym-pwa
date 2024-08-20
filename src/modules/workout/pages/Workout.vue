@@ -19,7 +19,7 @@
   />
   <VanSticky
     v-if="activeIds.length"
-    :offset-bottom="100"
+    :offset-bottom="50"
     position="bottom"
   >
     <VanButton

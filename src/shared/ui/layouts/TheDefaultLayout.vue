@@ -1,7 +1,7 @@
 <template>
   <ALayout class="flex flex-col">
     <TheHeader />
-    <ALayoutContent class="flex-grow ">
+    <ALayoutContent class="flex-grow">
       <RouterView />
     </ALayoutContent>
 

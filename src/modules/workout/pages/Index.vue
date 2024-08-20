@@ -8,28 +8,30 @@
       v-for="tag in listTag"
       :key="tag.value"
     >
-      <VanTab class="mb-24" :title="tag.label">
-        <VanCard
-          v-for="item in exercisesByMuscleGroup[listTag[activeName].value]"
-          :key="item.value"
-          :desc="item.description"
-          :thumb="item.imageUrl"
-          :title="item.label"
-        >
-          <template #footer>
-            <VanButton
-              plain
-              size="mini"
-              type="primary"
-              @click="watchVideo(item.videoUrl)"
-            >
-              Ссылка на видео
-            </VanButton>
-            <VanButton size="mini" @click="startExercise(item.value, listTag[activeName].value)">
-              Начать
-            </VanButton>
-          </template>
-        </VanCard>
+      <VanTab class="" :title="tag.label">
+        <div class="pb-30 snap-y overflow-y-auto max-h-[700px] md:max-h-[300px] sm:max-h-[700px]">
+          <VanCard
+            v-for="item in exercisesByMuscleGroup[listTag[activeName].value]"
+            :key="item.value"
+            :desc="item.description"
+            :thumb="item.imageUrl"
+            :title="item.label"
+          >
+            <template #footer>
+              <VanButton
+                plain
+                size="mini"
+                type="primary"
+                @click="watchVideo(item.videoUrl)"
+              >
+                Ссылка на видео
+              </VanButton>
+              <VanButton size="mini" @click="startExercise(item.value, listTag[activeName].value)">
+                Начать
+              </VanButton>
+            </template>
+          </VanCard>
+        </div>
       </VanTab>
     </template>
   </VanTabs>
