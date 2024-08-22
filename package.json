@@ -15,19 +15,24 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^7.0.1",
+    "@supabase/supabase-js": "^2.45.1",
+    "@tresjs/cientos": "^4.0.0",
     "@tresjs/core": "^4.2.6",
     "@vant/auto-import-resolver": "^1.2.1",
+    "GLTFLoader": "link:three/examples/jsm/loaders/GLTFLoader",
     "ant-design-vue": "^4.2.3",
     "axios": "^1.6.8",
     "dayjs": "^1.11.12",
     "dexie": "^4.0.8",
+    "firebase": "^10.13.0",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "three": "^0.167.1",
     "vant": "^4.9.4",
     "vue": "^3.4.21",
     "vue-i18n": "^9.13.0",
-    "vue-router": "^4.3.0"
+    "vue-router": "^4.3.0",
+    "vuefire": "^3.2.0"
   },
   "devDependencies": {
     "@antfu/eslint-config": "0.38.6",

@@ -13,6 +13,8 @@ const router = useRouter();
 const route = useRoute();
 
 const namePage = computed(() => {
-  return route.name as PageName === PageName.BASE_CURRENT_WORKOUT ? `${dictionaryPage[route.name as PageName]}: ${route.params.day}` : dictionaryPage[route.name as PageName];
+  return route.name as PageName === PageName.BASE_CURRENT_WORKOUT
+    ? `${(dictionaryPage as Record<PageName, string>)[route.name as PageName]}: ${route.params.day}`
+    : (dictionaryPage as Record<PageName, string>)[route.name as PageName];
 });
 </script>

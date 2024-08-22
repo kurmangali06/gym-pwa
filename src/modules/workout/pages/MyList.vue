@@ -25,7 +25,9 @@ const { getWorkoutsAll } = useWorkoutService();
 const countDate = ref<string[]>([]);
 
 function getALL() {
-  getWorkoutsAll().then((res: any[]) => {
+  getWorkoutsAll().then((res: any[] | null) => {
+    if (!res)
+      return;
     res.reduce((acc, item) => {
       const date = new Date(item.date);
       const yearMonthDay = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`; // Формат YYYY-MM-DD

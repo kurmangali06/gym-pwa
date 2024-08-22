@@ -50,9 +50,15 @@ const columns = [
   // { text: 'Тоннаш', value: 'tonne' },
 ];
 function getAll(val: TypeSort) {
-  getWorkoutsAll().then((res: any[]) => {
+  getWorkoutsAll().then((res: any[] | null) => {
+    if (!res)
+      return;
     const dataMap = res.reduce((acc, item) => {
-      countDate.value.push(item.date);
+      const formattedDate = new Date(item.date).toISOString().split('T')[0];
+
+      // Добавляем только уникальные даты в массив countDate
+      if (!countDate.value.includes(formattedDate))
+        countDate.value.push(formattedDate);
 
       if (!acc[item.name]) {
         acc[item.name] = {
@@ -61,11 +67,7 @@ function getAll(val: TypeSort) {
         };
       }
 
-      const keys = Object.keys(item);
-
-      const currentList = keys
-        .filter(key => key.includes('approacher'))
-        .map(key => parseFloat(item[key][val]));
+      const currentList = item.approachers.map((key: any) => parseFloat(key[val]));
 
       const maxWeigh = currentList.length > 0 ? Math.max(...currentList) : 0; //
 
@@ -105,7 +107,7 @@ const chartOptions = computed((): ApexOptions => {
     },
     tooltip: {
       x: {
-        format: 'dd/MM/yy/HH:mm',
+        format: 'dd/MM/yy',
       },
     },
   };

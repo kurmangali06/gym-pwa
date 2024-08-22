@@ -1,5 +1,6 @@
 import Dexie from 'dexie';
-import db from '../db/workout';
+import type { IStepsExercise } from 'modules/workout/model/DTO';
+import db, { supabase } from '../db/workout';
 
 function prepareDataForStorage<T>(data: T): T {
   return JSON.parse(JSON.stringify(data));
@@ -7,7 +8,8 @@ function prepareDataForStorage<T>(data: T): T {
 
 export async function getAllWorkout() {
   try {
-    return await db.workoutTable.toArray();
+    const { data } = await supabase.from('pwagym').select();
+    return data;
   } catch (error) {
     console.error('Error  GET', error);
     throw error;
@@ -17,8 +19,8 @@ export async function getAllWorkout() {
 export async function createExercise(body: any) {
   try {
     const serializableData = prepareDataForStorage<any>(body);
-    const addedItemId = await db.workoutTable.add(serializableData);
-    return addedItemId;
+    const { data } = await supabase.from('pwagym').upsert(serializableData);
+    return data;
   } catch (error) {
     console.error('Error adding object to the store', error);
     throw error;
@@ -47,18 +49,17 @@ export async function getCurrentWorkout(startDate: string, endDate?: string) {
 }
 export async function getWorkoutAll() {
   try {
-    return await db.currentWorkoutTable
-      .toArray();
+    const { data } = await supabase.from('pwagym').select();
+    return data;
   } catch (error) {
     console.error('Error GET', error);
     throw error;
   }
 }
-export async function createCurrentWorkout(body: any) {
+export async function createCurrentWorkout(body: IStepsExercise) {
   try {
-    const serializableData = prepareDataForStorage<any>(body);
-    const addedItemId = await db.currentWorkoutTable.add(serializableData);
-    return addedItemId;
+    const { data } = await supabase.from('pwagym').insert([body]);
+    return data;
   } catch (error) {
     console.error('Error POST', error);
     throw error;

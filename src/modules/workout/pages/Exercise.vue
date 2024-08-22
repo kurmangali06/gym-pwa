@@ -99,7 +99,7 @@ const { createCurrentWorkout } = useWorkoutService();
 
 async function saveExercise() {
   const formData = {
-    ...exercise.value,
+    approachers: Object.values(exercise.value),
     type: route.params.type,
     date: dayjs().toDate(),
     name: getCurrentExercise.value?.value,

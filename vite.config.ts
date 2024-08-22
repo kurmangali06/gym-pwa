@@ -76,6 +76,7 @@ export default defineConfig(({ mode }) => {
         app: fileURLToPath(new URL('./src/app', import.meta.url)),
         i18n: fileURLToPath(new URL('./src/i18n', import.meta.url)),
         api: fileURLToPath(new URL('./src/api', import.meta.url)),
+        src: fileURLToPath(new URL('./src', import.meta.url)),
       },
     },
   };
