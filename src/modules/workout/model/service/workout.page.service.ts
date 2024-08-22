@@ -2,6 +2,7 @@ import type { MuscleGroup } from 'shared/lib/types/app/pages';
 import { PageName } from 'shared/lib/types/app/pages';
 import { MuscleList, exercisesByMuscleGroup } from '../utils/constants';
 import { useWorkoutStore } from '../workout.store';
+import { useExerciseService } from './exercise.service';
 
 export function useWorkoutPageService() {
   const route = useRoute();
@@ -13,6 +14,7 @@ export function useWorkoutPageService() {
   function watchVideo(url: string) {
     window.open(url, '_blank');
   }
+  const { getExerciseAll, createExercise } = useExerciseService();
   function startExercise(val: string, type: MuscleGroup) {
     workoutStore.setWorkoutList(list.value);
     router.push({
@@ -30,5 +32,7 @@ export function useWorkoutPageService() {
     exercisesByMuscleGroup,
     watchVideo,
     startExercise,
+    getExerciseAll,
+    createExercise,
   };
 }

@@ -74,13 +74,9 @@ export async function deleteCurrentWorkout(id: number) {
 }
 
 export async function authEmail(email: string) {
-  const { data, error } = await supabase.auth.signInWithOtp({
-    email,
-    options: {
-      // set this to false if you do not want the user to be automatically signed up
-      shouldCreateUser: false,
-      emailRedirectTo: 'https://example.com/welcome',
-    },
+  const { data, error } = await supabase.auth.signInWithPassword({
+    email: 'kurmangali0606@gmail.com',
+    password: email,
   });
   if (data)
     return data;

@@ -34,31 +34,31 @@ export const dayList = ref([
 export const MuscleList = ref([
   {
     value: MuscleGroup.Shoulders,
-    label: 'Плечи',
+    text: 'Плечи',
   },
   {
     value: MuscleGroup.Biceps,
-    label: 'Бицепс',
+    text: 'Бицепс',
   },
   {
     value: MuscleGroup.Triceps,
-    label: 'Трицепс',
+    text: 'Трицепс',
   },
   {
     value: MuscleGroup.Chest,
-    label: 'Грудь',
+    text: 'Грудь',
   },
   {
     value: MuscleGroup.Press,
-    label: 'Пресс',
+    text: 'Пресс',
   },
   {
     value: MuscleGroup.Back,
-    label: 'Спина',
+    text: 'Спина',
   },
   {
     value: MuscleGroup.Logs,
-    label: 'Ноги',
+    text: 'Ноги',
   },
 ]);
 

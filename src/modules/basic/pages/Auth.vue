@@ -5,7 +5,7 @@
         v-model="tel"
         label="Phone"
         :rules="[{ required: true, message: 'Phone is required' }]"
-        type="email"
+        type="tel"
       />
     </VanCellGroup>
     <div style="margin: 16px;">

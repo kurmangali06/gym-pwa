@@ -9,7 +9,7 @@
     type="primary"
     @close="close(tag.value)"
   >
-    {{ tag.label }}
+    {{ tag.text }}
   </VanTag>
   <VanTreeSelect
     v-model:active-id="activeIds"
