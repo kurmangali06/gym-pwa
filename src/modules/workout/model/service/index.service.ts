@@ -16,15 +16,6 @@ export function useWorkoutService() {
     });
   }
 
-  async function deleteExercise(id: string) {
-    return Executor.run({
-      request: WorkoutRepository.deleteWorkout(id),
-      loadingState,
-      onResult() {
-        getWorkout();
-      },
-    });
-  }
   async function createCurrentWorkout(body: any) {
     return Executor.run({
       request: WorkoutRepository.postCurrentWorkout(body),
@@ -73,7 +64,6 @@ export function useWorkoutService() {
   }
   return {
     getWorkout,
-    deleteExercise,
     createCurrentWorkout,
     getCurrentWorkout,
     isLoading: loadingState.isLoading,

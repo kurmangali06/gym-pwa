@@ -2,19 +2,10 @@
   <VanForm @submit="onSubmit">
     <VanCellGroup inset>
       <VanField
-        v-model="username"
-        label="Username"
-        name="Username"
-        placeholder="Username"
-        :rules="[{ required: true, message: 'Username is required' }]"
-      />
-      <VanField
-        v-model="password"
-        label="Password"
-        name="Password"
-        placeholder="Password"
-        :rules="[{ required: true, message: 'Password is required' }]"
-        type="password"
+        v-model="tel"
+        label="Phone"
+        :rules="[{ required: true, message: 'Phone is required' }]"
+        type="email"
       />
     </VanCellGroup>
     <div style="margin: 16px;">
@@ -23,6 +14,7 @@
         native-type="submit"
         round
         type="primary"
+        @click="onSubmit"
       >
         Войти
       </VanButton>
@@ -31,12 +23,11 @@
 </template>
 
 <script lang="ts" setup>
-const username = ref('');
-const password = ref('');
-function onSubmit(values: {
-  Password: string
-  Username: string
-}) {
+import { useAuthService } from 'shared/service/auth.service';
 
+const { authEmail } = useAuthService();
+const tel = ref('');
+function onSubmit() {
+  authEmail(tel.value);
 }
 </script>

@@ -1,9 +1,5 @@
 import type { IStepsExercise } from 'modules/workout/model/DTO';
-import db, { supabase } from '../db/workout';
-
-function prepareDataForStorage<T>(data: T): T {
-  return JSON.parse(JSON.stringify(data));
-}
+import { supabase } from '../db/workout';
 
 export async function getAllWorkout() {
   try {
@@ -11,16 +7,6 @@ export async function getAllWorkout() {
     return data;
   } catch (error) {
     console.error('Error  GET', error);
-    throw error;
-  }
-}
-
-export async function deleteExercise(id: string) {
-  try {
-    await db.workoutTable.delete(id);
-    return 'sucess';
-  } catch (error) {
-    console.error('Error deleting object from the store', error);
     throw error;
   }
 }
@@ -85,4 +71,19 @@ export async function deleteCurrentWorkout(id: number) {
     console.error('Error deleting object from the store', error);
     throw error;
   }
+}
+
+export async function authEmail(email: string) {
+  const { data, error } = await supabase.auth.signInWithOtp({
+    email,
+    options: {
+      // set this to false if you do not want the user to be automatically signed up
+      shouldCreateUser: false,
+      emailRedirectTo: 'https://example.com/welcome',
+    },
+  });
+  if (data)
+    return data;
+  if (error)
+    throw error;
 }

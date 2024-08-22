@@ -1,14 +1,8 @@
-import { createCurrentWorkout, deleteCurrentWorkout, deleteExercise, getAllWorkout, getCurrentWorkout, getWorkoutAll, updateCurrentWorkout } from '../../../api/service/workout';
+import { createCurrentWorkout, deleteCurrentWorkout, getAllWorkout, getCurrentWorkout, getWorkoutAll, updateCurrentWorkout } from '../../../api/service/workout';
 
 export class WorkoutRepository {
   static async getWorkout() {
     const response = getAllWorkout();
-
-    return response;
-  }
-
-  static async deleteWorkout(id: string) {
-    const response = await deleteExercise(id);
 
     return response;
   }
