@@ -8,6 +8,11 @@ export const moduleRoutes: RouteRecordRaw[] = [
     component: () => import('modules/basic/pages/AboutPage.vue'),
   },
   {
+    path: '/auth',
+    name: PageName.BASE_AUTH,
+    component: () => import('modules/basic/pages/Auth.vue'),
+  },
+  {
     // Important! Slash prefix ensures that route will be root and child of ErrorPage in same time
     path: '/:catchAll(.*)*',
     name: 'Error404',

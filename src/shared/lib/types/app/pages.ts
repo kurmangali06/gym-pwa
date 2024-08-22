@@ -8,6 +8,7 @@ export enum PageName {
   BASE_CURRENT_WORKOUT = 'CurrentWorkout',
   BASE_PROFILE = 'profile',
   BASE_MAIN = 'MAIN',
+  BASE_AUTH = 'AUTH',
 }
 export const dictionaryPage = {
   [PageName.BASE_HOME]: 'Главная',
@@ -18,6 +19,7 @@ export const dictionaryPage = {
   [PageName.BASE_LAYOUT]: 'Default',
   [PageName.BASE_CURRENT_WORKOUT]: 'Тренировка',
   [PageName.BASE_PROFILE]: 'Профиль',
+  [PageName.BASE_AUTH]: 'Авторизация',
 };
 export enum DateType {
   Monday = 1,
