@@ -26,7 +26,7 @@
         v-for="item in currentList"
         :key="item.name"
       >
-        <div class="flex justify-between items-center gap-5">
+        <div class="flex justify-center items-center gap-5">
           <VanTag
             class="text-center"
             size="medium"
@@ -40,16 +40,35 @@
             size="20px"
             @click="deleteExercise(item)"
           />
+          <VanIcon
+            color="#1989fa"
+            name="records-o"
+            size="20px"
+            @click="editExercise(item)"
+          />
         </div>
 
         <div
-          v-for="(e, index) in item"
+          v-for="(e, index) in item.approachers"
           :key="index"
           class=" flex  justify-center"
         >
-          <div v-if="typeof e === 'object' && 'count' in e">
-            {{ e.weigh }} <VanIcon name="cross" />{{ e.count }}
-          </div>
+          <VanField
+            v-model="e.weigh"
+            label="Вес"
+            name="weight"
+            placeholder="ВЕС"
+            :rules="[{ required: true, message: 'weight is required' }]"
+            type="number"
+          />
+          <VanField
+            v-model="e.count"
+            label="Количество"
+            name="count"
+            placeholder="Количество"
+            :rules="[{ required: true, message: 'count is required' }]"
+            type="number"
+          />
         </div>
       </div>
     </div>
@@ -57,19 +76,28 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs';
+import { PageName } from 'shared/lib/types/app/pages';
 import type { IStepsExercise, ITypeExercise } from '../model/DTO';
 import { useWorkoutService } from '../model/service/index.service';
 import { dictionaryMuscleGroup } from '../model/utils/constants';
 
 const route = useRoute();
+const router = useRouter();
 const currentList = ref<IStepsExercise[]>([]);
 const show = ref(false);
 const title = ref('');
-const { getCurrentWorkout, deleteWorkoutExercise } = useWorkoutService();
+const { getCurrentWorkout, deleteWorkoutExercise, updateWorkout } = useWorkoutService();
 const list = ref<ITypeExercise | null>(null);
 function getALL() {
-  getCurrentWorkout(dayjs(route.params.day as string).toDate()).then((res: any[]) => {
+  getCurrentWorkout(route.params.day as string).then((res: any[] | null) => {
+    if (!res)
+      return;
+
+    if (!res.length) {
+      router.push({
+        name: PageName.BASE_SELECT,
+      });
+    }
     list.value = res.reduce((acc, item) => {
       if (!acc[item.type])
         acc[item.type] = [];
@@ -93,14 +121,20 @@ function detailInfo(e: IStepsExercise[], text: string) {
   show.value = true;
 }
 async function deleteExercise(e: IStepsExercise) {
-  await deleteWorkoutExercise(e.date).then((res) => {
-    if (res)
+  await deleteWorkoutExercise(e.id).then((res) => {
+    if (res === 204)
       showNotify({ type: 'success', message: 'Запись удалена' });
   }).catch((_err) => {
     showNotify({ type: 'warning', message: _err });
-  }).finally(() => {
+  }).finally(async () => {
     show.value = false;
-    window.location.reload();
+    await getALL();
   });
+}
+async function editExercise(e: IStepsExercise) {
+  const res = await updateWorkout(e.id, e);
+  if (res === 204)
+    await getALL();
+  show.value = false;
 }
 </script>

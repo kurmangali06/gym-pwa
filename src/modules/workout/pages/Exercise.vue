@@ -109,7 +109,7 @@ async function saveExercise() {
 
   const res = await createCurrentWorkout(formData);
 
-  if (res) {
+  if (res === 201) {
     showNotify({ type: 'success', message: 'Запись добавлена', duration: 20 });
     router.push({
       name: PageName.BASE_WORKOUT,
@@ -118,7 +118,7 @@ async function saveExercise() {
       },
     });
   } else {
-    showNotify({ type: 'danger', message: 'Что то пошло не так' });
+    showNotify({ type: 'danger', message: ` Что то пошло не так ${res}` });
   }
 }
 

@@ -1,7 +1,6 @@
 import { useGlobalLoading } from 'shared/lib/composables/useLoading';
 import { Executor } from 'shared/api/executor';
 import { WorkoutRepository } from 'modules/workout/api/workout.repository';
-import type { IMuscleValue } from 'shared/model/base.dto';
 import { useWorkoutStore } from '../workout.store';
 
 export function useWorkoutService() {
@@ -17,15 +16,6 @@ export function useWorkoutService() {
     });
   }
 
-  async function createExercise(body: IMuscleValue) {
-    return Executor.run({
-      request: WorkoutRepository.postWorkout(body),
-      loadingState,
-      onResult() {
-        getWorkout();
-      },
-    });
-  }
   async function deleteExercise(id: string) {
     return Executor.run({
       request: WorkoutRepository.deleteWorkout(id),
@@ -44,16 +34,16 @@ export function useWorkoutService() {
       },
     });
   }
-  async function updateWorkout(date: Date, body: any) {
+  async function updateWorkout(id: number, body: any) {
     return Executor.run({
-      request: WorkoutRepository.updateWorkout(date, body),
+      request: WorkoutRepository.updateWorkout(id, body),
       loadingState,
       onResult(data) {
         return data;
       },
     });
   }
-  async function getCurrentWorkout(date: Date) {
+  async function getCurrentWorkout(date: string) {
     return Executor.run({
       request: WorkoutRepository.CurrentWorkout(date),
       loadingState,
@@ -72,9 +62,9 @@ export function useWorkoutService() {
     });
   }
 
-  async function deleteWorkoutExercise(data: Date) {
+  async function deleteWorkoutExercise(id: number) {
     return Executor.run({
-      request: WorkoutRepository.deleteWorkoutExercise(data),
+      request: WorkoutRepository.deleteWorkoutExercise(id),
       loadingState,
       onResult(data) {
         return data;
@@ -83,7 +73,6 @@ export function useWorkoutService() {
   }
   return {
     getWorkout,
-    createExercise,
     deleteExercise,
     createCurrentWorkout,
     getCurrentWorkout,

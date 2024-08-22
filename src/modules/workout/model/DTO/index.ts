@@ -11,13 +11,12 @@ export interface IApproacher {
 }
 export interface IStepsExercise {
   type: MuscleGroup // Группа мышц, связанная с упражнением
-  date: Date // Дата выполнения упражнения
+  date: string // Дата выполнения упражнения
   name: string // Название упражнения
   label: string // Ярлык или метка упражнения
   description: string // Описание упражнения
-
-  // Индексная подпись для динамических ключей с паттерном "napproacher"
-  [key: string]: IApproacher | MuscleGroup | Date | string
+  id: number
+  approachers: IApproacher[]
 }
 
 export type ITypeExercise = {

@@ -1,15 +1,8 @@
-import type { IMuscleValue } from 'shared/model/base.dto';
-import { createCurrentWorkout, createExercise, deleteCurrentWorkout, deleteExercise, getAllWorkout, getCurrentWorkout, getWorkoutAll, updateCurrentWorkout } from '../../../api/service/workout';
+import { createCurrentWorkout, deleteCurrentWorkout, deleteExercise, getAllWorkout, getCurrentWorkout, getWorkoutAll, updateCurrentWorkout } from '../../../api/service/workout';
 
 export class WorkoutRepository {
   static async getWorkout() {
     const response = getAllWorkout();
-
-    return response;
-  }
-
-  static async postWorkout(body: IMuscleValue) {
-    const response = await createExercise(body);
 
     return response;
   }
@@ -26,13 +19,13 @@ export class WorkoutRepository {
     return response;
   }
 
-  static async updateWorkout(data: Date, body: any) {
-    const response = await updateCurrentWorkout(data, body);
+  static async updateWorkout(id: number, body: any) {
+    const response = await updateCurrentWorkout(id, body);
 
     return response;
   }
 
-  static async CurrentWorkout(date: any) {
+  static async CurrentWorkout(date: string) {
     const response = await getCurrentWorkout(date);
 
     return response;
@@ -44,8 +37,8 @@ export class WorkoutRepository {
     return response;
   }
 
-  static async deleteWorkoutExercise(data: Date) {
-    const response = await deleteCurrentWorkout(data);
+  static async deleteWorkoutExercise(id: number) {
+    const response = await deleteCurrentWorkout(id);
 
     return response;
   }

@@ -50,5 +50,5 @@ const {
   exercisesByMuscleGroup,
 } = useWorkoutPageService();
 const { getCurrentWorkout } = useWorkoutService();
-getCurrentWorkout(dayjs().toDate());
+getCurrentWorkout(dayjs().toDate().toDateString());
 </script>
