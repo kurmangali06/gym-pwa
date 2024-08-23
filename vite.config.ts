@@ -3,7 +3,6 @@ import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import AutoImport from 'unplugin-auto-import/vite';
 import Components from 'unplugin-vue-components/vite';
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import { VantImports, VantResolver } from '@vant/auto-import-resolver';
 import { VitePWA } from 'vite-plugin-pwa';
 import { templateCompilerOptions } from '@tresjs/core';
@@ -22,9 +21,6 @@ export default defineConfig(({ mode }) => {
     Components({
       dts: 'src/components.d.ts',
       resolvers: [
-        AntDesignVueResolver({
-          importStyle: false, // css in js
-        }),
         VantResolver(),
       ],
     }),

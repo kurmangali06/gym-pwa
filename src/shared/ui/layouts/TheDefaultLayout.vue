@@ -1,12 +1,11 @@
 <template>
-  <ALayout class="flex flex-col">
+  <div class="mobile-layout">
     <TheHeader />
-    <ALayoutContent class="flex-grow">
+    <div class="content flex-grow">
       <RouterView />
-    </ALayoutContent>
-
+    </div>
     <BottomNavigationBar />
-  </ALayout>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -15,7 +14,15 @@ import TheHeader from '../TheHeader.vue';
 </script>
 
 <style lang="css">
-.ant-layout-header {
-  background: #f5f5f5 !important
+.mobile-layout {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.content {
+  padding: 4px;
+  flex-grow: 1;
+  overflow-y: auto;
 }
 </style>

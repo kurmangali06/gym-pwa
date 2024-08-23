@@ -20,7 +20,6 @@
     "@tresjs/core": "^4.2.6",
     "@vant/auto-import-resolver": "^1.2.1",
     "GLTFLoader": "link:three/examples/jsm/loaders/GLTFLoader",
-    "ant-design-vue": "^4.2.3",
     "axios": "^1.6.8",
     "dayjs": "^1.11.12",
     "dexie": "^4.0.8",
