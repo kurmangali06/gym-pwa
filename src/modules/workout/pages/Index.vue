@@ -8,77 +8,106 @@
       v-for="tag in listTag"
       :key="tag.value"
     >
-      <VanTab class="" :title="tag.text">
-        <VanButton
-          block
-          round
-          type="primary"
-          @click="show = true"
+      <VanTab :title="tag.text">
+        <div class="flex items-center justify-center my-4">
+          <VanButton
+            round
+            size="mini"
+            @click="openNewExercise"
+          >
+            Добавить упражение
+          </VanButton>
+        </div>
+
+        <div
+          v-if=" listMuscleGroup"
+          class="pb-30 snap-y overflow-y-auto max-h-[700px] md:max-h-[300px] sm:max-h-[700px]"
         >
-          Добавить упражение
-        </VanButton>
-        <div class="pb-30 snap-y overflow-y-auto max-h-[700px] md:max-h-[300px] sm:max-h-[700px]">
           <VanCard
-            v-for="item in exercisesByMuscleGroup[listTag[activeName].value]"
+            v-for="item in listMuscleGroup[tag.value]"
             :key="item.value"
             :desc="item.description"
             :thumb="item.imageUrl"
             :title="item.label"
           >
             <template #footer>
-              <VanButton
-                plain
-                size="mini"
-                type="primary"
-                @click="watchVideo(item.videoUrl)"
-              >
-                Ссылка на видео
-              </VanButton>
-              <VanButton size="mini" @click="startExercise(item.value, listTag[activeName].value)">
-                Начать
-              </VanButton>
+              <div class="flex justify-center items-center gap-2">
+                <VanButton
+                  plain
+                  size="mini"
+                  type="primary"
+                  @click="watchVideo(item.videoUrl)"
+                >
+                  Ссылка на видео
+                </VanButton>
+                <VanButton size="mini" @click="startExercise(item.value, listTag[activeName].value)">
+                  Начать
+                </VanButton>
+                <VanIcon
+                  color="#1989fa"
+                  name="delete"
+                  size="20px"
+                  @click="deleteExercise(item.id)"
+                />
+                <VanIcon
+                  color="#1989fa"
+                  name="records-o"
+                  size="20px"
+                  @click="editExercise(item)"
+                />
+              </div>
             </template>
           </VanCard>
         </div>
       </VanTab>
     </template>
   </VanTabs>
-  <VanActionSheet v-model:show="show" title="упражение">
+  <VanActionSheet v-model:show="show" :title="title">
     <VanForm @submit="onSave">
       <VanCellGroup inset>
         <VanField
-          v-model="value"
-          placeholder="Use pattern"
-          :rules="[{ required: true, message: 'weight is required' }]"
+          v-model="form.value"
+          label="Англ название"
+          placeholder="введите английское название"
+          :rules="[{ required: true, message: 'value is required' }]"
         />
         <VanField
-          v-model="label"
-          placeholder="Use pattern"
-          :rules="[{ required: true, message: 'weight is required' }]"
+          v-model="form.label"
+          label="Название"
+          placeholder="введите  название"
+          :rules="[{ required: true, message: 'label is required' }]"
         />
         <VanField
-          v-model="sets"
-          placeholder="Use pattern"
-          :rules="[{ required: true, message: 'weight is required' }]"
+          v-model="form.sets"
+          label="Подходы"
+          placeholder="введите  кол-во подходов"
+          :rules="[{ required: true, message: 'sets is required' }]"
           type="number"
         />
         <VanField
-          v-model="description"
-          placeholder="Use pattern"
-          :rules="[{ required: true, message: 'weight is required' }]"
+          v-model="form.description"
+          autosize
+          label="Описание"
+          placeholder="введите  описание"
+          rows="1"
+          :rules="[{ required: true, message: 'description is required' }]"
+          type="textarea"
         />
         <VanField
-          v-model="videoUrl"
-          placeholder="Use pattern"
-          :rules="[{ required: true, message: 'weight is required' }]"
+          v-model="form.videoUrl"
+          label="Ссылка"
+          placeholder="введите  Ссылку"
+          :rules="[{ required: true, message: 'Ссылка is required' }]"
+        />
+
+        <VanField
+          v-model="form.imageUrl"
+          label="Картинка"
+          placeholder="введите  Ссылку"
+          :rules="[{ required: true, message: 'Ссылка is required' }]"
         />
         <VanField
-          v-model="imageUrl"
-          placeholder="Use pattern"
-          :rules="[{ required: true, message: 'weight is required' }]"
-        />
-        <VanField
-          v-model="type"
+          v-model="form.type"
           is-link
           label="Тип упраженения"
           name="picker"
@@ -100,7 +129,7 @@
           round
           type="primary"
         >
-          Submit
+          {{ form.id ? 'Изменить' : 'Создать' }}
         </VanButton>
       </div>
     </VanForm>
@@ -108,51 +137,26 @@
 </template>
 
 <script setup lang="ts">
-import dayjs from 'dayjs';
-import type { ITextValue } from 'shared/lib/types/app/app';
-import type { MuscleGroup } from 'shared/lib/types/app/pages';
-import { useWorkoutService } from '../model/service/index.service';
 import { useWorkoutPageService } from '../model/service/workout.page.service';
 import { MuscleList } from '../model/utils/constants';
 
 const {
-  startExercise,
-  activeName,
   listTag,
+  show,
+  onSave,
+  title,
+  form,
+  showPicker,
+  activeName,
+  listMuscleGroup,
   watchVideo,
-  getExerciseAll,
-  createExercise,
-  exercisesByMuscleGroup,
+  startExercise,
+  sortExerciseAll,
+  deleteExercise,
+  onConfirm,
+  editExercise,
+  openNewExercise,
 } = useWorkoutPageService();
-const show = ref(false);
-const value = ref('');
-const label = ref('');
-const sets = ref(0);
-const description = ref('');
-const videoUrl = ref('');
-const imageUrl = ref('');
-const type = ref('');
-const showPicker = ref(false);
-const paramType = ref<MuscleGroup>();
-function onConfirm({ selectedOptions }: { selectedOptions: ITextValue<MuscleGroup> [] }) {
-  type.value = selectedOptions[0].text;
-  paramType.value = selectedOptions[0].value;
-  showPicker.value = false;
-}
-async function onSave() {
-  const formData = {
-    value: value.value,
-    label: label.value,
-    sets: sets.value,
-    description: description.value,
-    videoUrl: videoUrl.value,
-    imageUrl: imageUrl.value,
-    type: paramType.value,
-  };
-  const res = await createExercise(formData);
-}
 
-const { getCurrentWorkout } = useWorkoutService();
-getCurrentWorkout(dayjs().toDate().toDateString());
-getExerciseAll();
+sortExerciseAll();
 </script>

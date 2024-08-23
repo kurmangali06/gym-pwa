@@ -73,17 +73,15 @@
         type="number"
       />
     </VanCellGroup>
-    <TheeExercise />
   </template>
 </template>
 
 <script setup lang="ts">
-import { type MuscleGroup, PageName } from 'shared/lib/types/app/pages';
+import { PageName } from 'shared/lib/types/app/pages';
 import type { IApproacher } from 'shared/model/base.dto';
 import { useGlobalLoading } from 'shared/lib/composables/useLoading';
 import dayjs from 'dayjs';
 
-import { exercisesByMuscleGroup } from '../model/utils/constants';
 import { useWorkoutService } from '../model/service/index.service';
 import { useWorkoutStore } from '../model/workout.store';
 
@@ -91,7 +89,8 @@ const active = ref(0);
 const workoutStore = useWorkoutStore();
 const route = useRoute();
 const router = useRouter();
-const getCurrentExercise = computed(() => exercisesByMuscleGroup[route.params.type as MuscleGroup].find(e => e.value === route.params.name as string));
+
+const getCurrentExercise = computed(() => workoutStore.getMuscleList.find(e => e.value === route.params.name as string));
 const exercise = ref<Record<string, IApproacher>>({});
 const steps = ref(0);
 const { isLoading, startLoading, stopLoading } = useGlobalLoading();
@@ -138,7 +137,7 @@ function deleteSteps() {
 onMounted(() => {
   startLoading();
   if (getCurrentExercise.value) {
-    steps.value = getCurrentExercise.value?.sets;
+    steps.value = +getCurrentExercise.value?.sets;
     for (let i = 0; i < getCurrentExercise.value?.sets; i++) {
       exercise.value[`${i}approacher`] = {
         count: '0',

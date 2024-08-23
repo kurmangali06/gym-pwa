@@ -1,4 +1,5 @@
 import type { MuscleGroup } from 'shared/lib/types/app/pages';
+import type { Exercise } from '../utils/constants';
 
 export interface ILabelValue {
   value: string
@@ -21,4 +22,8 @@ export interface IStepsExercise {
 
 export type ITypeExercise = {
   [key in MuscleGroup]: IStepsExercise[]
+};
+
+export type IExerciseList = {
+  [key in MuscleGroup]: Exercise[]
 };

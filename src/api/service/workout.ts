@@ -72,14 +72,3 @@ export async function deleteCurrentWorkout(id: number) {
     throw error;
   }
 }
-
-export async function authEmail(email: string) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: 'kurmangali0606@gmail.com',
-    password: email,
-  });
-  if (data)
-    return data;
-  if (error)
-    throw error;
-}

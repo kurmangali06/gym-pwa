@@ -28,14 +28,25 @@
         round
         type="primary"
       >
-        Создать
+        Войти
       </VanButton>
       <VanButton
         block
         round
-        :to="{ name: PageName.BASE_SING_IN }"
+        :to="{ name: PageName.BASE_AUTH }"
+        type="default"
       >
-        Войти
+        Зарегистироваться
+      </VanButton>
+    </div>
+    <div class="mt-3">
+      <VanButton
+        block
+        round
+        type="default"
+        @click="onPassword"
+      >
+        забыли пароль
       </VanButton>
     </div>
   </VanForm>
@@ -45,15 +56,25 @@
 import { useAuthService } from 'shared/service/auth.service';
 import { PageName } from 'shared/lib/types/app/pages';
 
-const { createUser } = useAuthService();
+const { authEmail, resetPassword } = useAuthService();
 const username = ref('');
 const password = ref('');
 async function onSubmit() {
-  await createUser({
+  await authEmail({
     email: username.value,
     password: password.value,
   }).then((res) => {
 
+  }).catch((err) => {
+    showNotify({ type: 'danger', message: err });
+  });
+}
+
+async function onPassword() {
+  await resetPassword({
+    email: username.value,
+    password: password.value,
+  }).then((res) => {
   }).catch((err) => {
     showNotify({ type: 'danger', message: err });
   });
