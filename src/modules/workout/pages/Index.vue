@@ -1,4 +1,15 @@
 <template>
+  <div class="flex items-center justify-center my-2">
+    <VanButton
+      plain
+      round
+      size="mini"
+      type="primary"
+      @click="openNewExercise"
+    >
+      Добавить упражение
+    </VanButton>
+  </div>
   <VanTabs
     v-if="listTag.length"
     v-model:active="activeName"
@@ -9,16 +20,6 @@
       :key="tag.value"
     >
       <VanTab :title="tag.text">
-        <div class="flex items-center justify-center my-4">
-          <VanButton
-            round
-            size="mini"
-            @click="openNewExercise"
-          >
-            Добавить упражение
-          </VanButton>
-        </div>
-
         <div
           v-if=" listMuscleGroup"
           class="pb-30 snap-y overflow-y-auto max-h-[700px] md:max-h-[300px] sm:max-h-[700px]"
